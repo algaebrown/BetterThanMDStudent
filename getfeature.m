@@ -1,4 +1,4 @@
-function [fft2olp, fft2nmr]=getfeature(recordName)
+function featureVector=getfeature(recordName)
 %main
 %Origial created: 20160324
 %Last modified: 20160327
@@ -28,26 +28,31 @@ PCG_resampled      = resample(PCG,springer_options.audio_Fs,Fs1); % resample to 
 %% We just assume that the assigned_states cover at least 2 whole heart beat cycle
 A= getA(assigned_states);
 true_index=A*(Fs1/1000);
-numOfCycle=size(true_index,1);
 
 %% get the start and end index of each cycle
-startend=getCycle1(PCG,true_index); %%%%%%%%%%%%
+startend=getCycle1(PCG,true_index);
 
 %% devide into 10 parts each cycle
 partitionIndex=partitionCycle(10, startend);
 
-%% overlap
-
-
 %% add zero and fft
-[fftolp,parCyc] = alignedFFTolp( partitionIndex, PCG );
-[fftnmr,parCycm]= alignedFFT(partitionIndex,PCG);
+[fftolp,~] = alignedFFTolp( partitionIndex, PCG );
+[fftnmr,~]= alignedFFT(partitionIndex,PCG);
 fftolp=fftolp(1:9,:);
-%fft1: contain complex fft
-%parCyc: partitioned cycle, zeros added to 250 points
 
 %% fft1 become cyclewise and plot (data visualization)
 fft2olp=transfft(fftolp);
 fft2nmr=transfft(fftnmr);
 
+%% unroll and arrange it into 3500 feature vector
+[avgolp, ~]=unrollfft(fft2olp);
+[avgnmr, ~]=unrollfft(fft2nmr);
+
+load fsortp;
+numOfF=40;
+selectIdx = featureIdxSortbyP(1:numOfF);
+featureVector=normr([avgnmr,avgolp]);
+featureVector=featureVector(selectIdx);
 end
+
+%% local functions

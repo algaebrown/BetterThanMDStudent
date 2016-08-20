@@ -3,15 +3,7 @@ function classifyResult = challenge(recordName )
 %   contain the trainined parameters.
 
 %% get feature vector
-[fft2olp, fft2nmr]=getfeature(recordName);
-[avgolp, ~]=unrollfft(fft2olp);
-[avgnmr, ~]=unrollfft(fft2nmr);
-
-load fsortp;
-numOfF=40;
-selectIdx=featureIdxSortbyP(1:numOfF)
-featureVector=normr([avgnmr,avgolp]);
-featureVector=featureVector(selectIdx);
+featureVector=getfeature(recordName);
 
 %% prediction
 %step1 pretrained kmn centroid
@@ -36,4 +28,7 @@ end
 
 
 end
+
+%% local functions
+
 

@@ -24,7 +24,7 @@ if dist1> dist2
     classifyResult=0;
 else
     %step2 pretrained ANN
-    load net5;
+    load net0709ADASYN;
     o=net(featureVector');
     if o(1)>o(2)
         classifyResult=1;

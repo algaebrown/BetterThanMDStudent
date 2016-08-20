@@ -1,6 +1,6 @@
 function classifyResult = challenge(recordName )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%challange.m: input record's name, output the result
+%   contain the trainined parameters.
 
 %% get feature vector
 [fft2olp, fft2nmr]=getfeature(recordName);

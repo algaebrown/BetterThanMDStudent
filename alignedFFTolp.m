@@ -18,7 +18,7 @@ for a=1:length(par)-2;
         cut(1:l)=PCG(par(a):par(a+2));
     end
     par0{a}=cut;
-    parfft{a}=fft(cut)
+    parfft{a}=fft(cut);
 end
 parCyc=reshape(par0,size(partitionIndex));
 fft1=reshape(parfft,size(partitionIndex));

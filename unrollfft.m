@@ -1,4 +1,4 @@
-function [avg, cycledata]=unrollfft(fft2);
+function [avg, cycledata]=unrollfft(fft2)
 cycledata=[];
     for n=1:length(fft2);
         roww=reshape((fft2{1,n})',[1,size(fft2{1,n},1)*size(fft2{1,n},2)]);

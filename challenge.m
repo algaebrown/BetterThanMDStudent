@@ -2,8 +2,14 @@ function classifyResult = challenge(recordName )
 %challange.m: input record's name, output the result
 %   contain the trainined parameters.
 
-%% get feature vector
+%% get full(3500) feature vector
 featureVector=getfeature(recordName);
+
+%% feature selection
+load fsortp;
+numOfF=40;
+selectIdx = featureIdxSortbyP(1:numOfF);
+featureVector=featureVector(selectIdx);
 
 %% prediction
 %step1 pretrained kmn centroid

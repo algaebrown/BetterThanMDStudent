@@ -30,7 +30,7 @@ A= getA(assigned_states);
 true_index=A*(Fs1/1000);
 
 %% get the start and end index of each cycle
-startend=getCycle1(PCG,true_index);
+startend=getCycle(PCG,true_index);
 
 %% devide into 10 parts each cycle
 partitionIndex=partitionCycle(10, startend);
@@ -47,12 +47,9 @@ fft2nmr=transfft(fftnmr);
 %% unroll and arrange it into 3500 feature vector
 [avgolp, ~]=unrollfft(fft2olp);
 [avgnmr, ~]=unrollfft(fft2nmr);
-
-load fsortp;
-numOfF=40;
-selectIdx = featureIdxSortbyP(1:numOfF);
 featureVector=normr([avgnmr,avgolp]);
-featureVector=featureVector(selectIdx);
+
 end
 
-%% local functions
+
+

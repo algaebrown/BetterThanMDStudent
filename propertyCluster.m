@@ -34,4 +34,4 @@ plot(num(:,1),num(:,4),'+')
 plot3(num(:,1),num(:,2),num(:,4),'+')
 
 %range
-
+load str
